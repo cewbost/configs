@@ -1,0 +1,54 @@
+evaluate-commands %sh{
+	plugins="$kak_config/plugins"
+	mkdir -p "$plugins"
+	[ ! -e "$plugins/plug.kak" ] && \
+		git clone -q https://github.com/andreyorst/plug.kak.git "$plugins/plug.kak"
+	printf "%s\n" "source '$plugins/plug.kak/rc/plug.kak'"
+}
+
+plug "andreyorst/plug.kak" noload
+plug "alexherbo2/auto-pairs.kak" config %{
+	enable-auto-pairs
+}
+plug "danr/kakoune-easymotion" config %{
+	map global user w ': easy-motion-w<ret>' -docstring 'hint next words'
+	map global user W ': easy-motion-W<ret>' -docstring 'hint next whole words'
+	map global user b ': easy-motion-b<ret>' -docstring 'hint previous words'
+	map global user B ': easy-motion-B<ret>' -docstring 'hint previous whole words'
+}
+plug "Delapouite/kakoune-buffers" config %{
+  alias global bo buffer-only
+  alias global bo! buffer-only-force
+  map global user o ': buffer-only<ret>' -docstring 'close all other buffers'
+  map global user O ': buffer-only-force<ret>' -docstring 'force close all other buffers'
+}
+plug "h-youhei/kakoune-surround" config %{
+	map global user s ': surround<ret>' -docstring 'surround selection'
+	map global user c ': change-surround<ret>' -docstring 'change surround'
+	map global user d ': delete-surround<ret>' -docstring 'delete surround'
+}
+plug "andreyorst/fzf.kak" config %{
+  map global normal <c-p> ': fzf-mode<ret>' -docstring 'fuzzy find mode'
+}
+plug "andreyorst/smarttab.kak" defer smarttab %{
+  set-option global softtabstop 2
+}
+
+plug "TeddyDD/kakoune-selenized" theme
+
+evaluate-commands %sh{
+  find "${kak_config}/rc" -type f -name '*\.kak' \
+    | sed 's/.*/try %{ source "&" } catch %{ echo -debug config: could not load "&" }/'
+}
+
+set-option global tabstop 2
+set-option global indentwidth 2
+
+add-highlighter global/matching show-matching
+add-highlighter global/numbers number-lines -relative -hlcursor
+
+colorscheme bogons
+
+hook global WinSetOption filetype=(.*) %{
+  expandtab
+}
