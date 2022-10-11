@@ -1,0 +1,10 @@
+bashsheet https://devhints.io/bash
+gostd https://pkg.go.dev/std
+gospec https://go.dev/ref/spec
+deepbook https://www.deeplearningbook.org/
+regexpsheet https://devhints.io/regexp
+gawk https://www.gnu.org/software/gawk/manual/gawk.html
+tmock https://pkg.go.dev/github.com/stretchr/testify/mock
+tassert https://pkg.go.dev/github.com/stretchr/testify/assert
+terr https://www.terraform.io/language
+tsuite https://pkg.go.dev/github.com/stretchr/testify/suite
