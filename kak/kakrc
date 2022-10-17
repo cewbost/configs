@@ -7,6 +7,11 @@ evaluate-commands %sh{
 }
 
 plug "andreyorst/plug.kak" noload
+#plug "kak-lsp/kak-lsp" do %{
+#  cargo install --locked --force --path .
+#  mkdir -p ~/.config/kak-lsp
+#  cp -n kak-lsp.toml ~/.config/kak-lsp/
+#}
 plug "alexherbo2/auto-pairs.kak" config %{
 	enable-auto-pairs
 }
@@ -33,6 +38,26 @@ plug "andreyorst/fzf.kak" config %{
 plug "andreyorst/smarttab.kak" defer smarttab %{
   set-option global softtabstop 2
 }
+plug "lePerdu/kakboard" config %{
+  set global kakboard_copy_cmd 'xclip -i -selection clipboard'
+  set global kakboard_paste_cmd 'xclip -o -selection clipboard'
+  map global user y ': kakboard-with-push-clipboard y<ret>' -docstring 'yank to clipboard'
+  map global user p ': kakboard-with-pull-clipboard p<ret>' -docstring 'paste after from clipboard'
+  map global user P ': kakboard-with-pull-clipboard P<ret>' -docstring 'paste before from clipboard'
+  map global user R ': kakboard-with-pull-clipboard R<ret>' -docstring 'replace from clipboard'
+}
+
+map global user g ': grep %val{selection} ' -docstring 'grep for selection'
+map global user f ': format<ret>' -docstring 'format buffer'
+
+eval %sh{kak-lsp --kakoune -s $kak_session}
+hook global WinSetOption filetype=(go|cpp) %{
+  lsp-enable-window
+}
+
+map global user l %{:enter-user-mode lsp<ret>} -docstring "LSP mode"
+map global object f '<a-semicolon>lsp-object Function Method<ret>' -docstring "LSP function or method"
+map global object t '<a-semicolon>lsp-object Class Interface Struct<ret>' -docstring "LSP class, interface or struct"
 
 plug "TeddyDD/kakoune-selenized" theme
 

@@ -8,13 +8,13 @@ evaluate-commands %sh{
     bogons_light_grey="rgb:cccccc"
     bogons_lighter_grey="rgb:eeeeee"
 
-		bogons_deep_blue="rgb:9999ff"
-		bogons_teal="rgb:bbbbff"
+		bogons_deep_blue="rgb:aaaaff"
+		bogons_teal="rgb:bbddff"
 		bogons_light_purple="rgb:ffaaff"
 		bogons_deep_purple="rgb:ff88cc"
-		bogons_red="rgb:ff6666"
-		bogons_light_orange="rgb:ffff66"
-		bogons_pale_green="rgb:99ff99"
+		bogons_red="rgb:ff99cc"
+		bogons_light_orange="rgb:ffff99"
+		bogons_pale_green="rgb:99ffff"
 
     bogons_dark_red="rgb:870000"
     bogons_light_red="rgb:ff8787"
@@ -56,7 +56,7 @@ evaluate-commands %sh{
         face global list ${bogons_blue}
 
         # and built in faces
-        face global Default ${bogons_lighter_grey},${bogons_darker_grey}
+        face global Default ${bogons_lighter_grey},default
         face global PrimarySelection ${bogons_darker_grey},${bogons_orange}+fg
         face global SecondarySelection  ${bogons_lighter_grey},${bogons_dark_blue}+fg
         face global PrimaryCursor ${bogons_darker_grey},${bogons_lighter_grey}+fg
@@ -79,7 +79,7 @@ evaluate-commands %sh{
         face global StatusCursor default,${bogons_blue}
         face global Prompt ${bogons_lighter_grey}
         face global MatchingChar ${bogons_lighter_grey},${bogons_bright_green}
-        face global BufferPadding ${bogons_green},${bogons_darker_grey}
+        face global BufferPadding ${bogons_green},default
         face global Whitespace ${bogons_grey}+f
     "
 }
